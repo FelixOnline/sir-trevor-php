@@ -38,13 +38,13 @@ class BlockquoteConverter extends BaseConverter implements ConverterInterface
     {
         $text = $data['text'];
         $html = '<blockquote>';
-        $html .= Markdown::defaultTransform($text);
+        $html .= str_replace('<blockquote>', '', str_replace('</blockquote>', '', Markdown::defaultTransform($text)));
 
         // Add the cite if necessary
         if (isset($data['cite']) && !empty($data['cite'])) {
             // remove the indent thats added by Sir Trevor
             $cite = ltrim($data['cite'], '>');
-            $html .= '<cite>' . Markdown::defaultTransform($cite) . '</cite>';
+            $html .= '<cite>' . $cite . '</cite>';
         }
 
         $html .= '</blockquote>';
