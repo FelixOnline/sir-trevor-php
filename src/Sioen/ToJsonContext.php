@@ -41,7 +41,7 @@ class ToJsonContext
         }
     }
 
-    public function getData(\DOMElement $node)
+    public function getData($node)
     {
         return $this->converter->toJson($node);
     }

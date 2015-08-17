@@ -58,6 +58,16 @@ class Converter
         // loop trough the child nodes and convert them
         if ($body) {
             foreach ($body->childNodes as $node) {
+		if (get_class($node) == "DOMComment") {
+			// Comments cannot be converted to JSON
+			continue;
+		}
+
+                if (get_class($node) == "DOMText") {
+                        // Comments cannot be converted to JSON
+                        continue;
+                }
+
                 $toJsonContext = new ToJsonContext($node->nodeName);
                 $data[] = $toJsonContext->getData($node);
             }
