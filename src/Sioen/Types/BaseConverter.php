@@ -20,11 +20,18 @@ class BaseConverter implements ConverterInterface
     public function toJson(\DOMElement $node)
     {
         $html = $node->ownerDocument->saveXML($node);
+        $html = $this->htmlToMarkdown($html);
+        $html = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x80-\x9F]/u', '', $html);
+        $html = trim($html);
+
+        if($html == '') {
+            return null;
+        }
 
         return array(
             'type' => 'text',
             'data' => array(
-                'text' => ' ' . $this->htmlToMarkdown($html)
+                'text' => ' ' . $html
             )
         );
     }

@@ -43,7 +43,6 @@ class Converter
     public function toJson($html)
     {
         // Strip white space between tags to prevent creation of empty #text nodes
-        $html = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $html);
         $html = preg_replace('~>\s+<~', '><', $html);
         $document = new \DOMDocument();
 
@@ -72,11 +71,7 @@ class Converter
                 $toJsonContext = new ToJsonContext($node->nodeName);
                 $converted = $toJsonContext->getData($node);
 
-                if(key($converted) != 'type') { // Assume we have an array of converted items
-                    foreach($converted as $item) {
-                        $data[] = $item;
-                    }
-                } else {
+                if($converted != null) {
                     $data[] = $converted;
                 }
             }

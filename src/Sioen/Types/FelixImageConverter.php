@@ -47,7 +47,7 @@ class FelixImageConverter extends BaseConverter implements ConverterInterface
                 if ($childNode->nodeType != XML_TEXT_NODE) {
                     continue;
                 }
-                $caption .= preg_replace('/( -$)/', '', $childNode->wholeText); // Trim some fluff off the end
+                $caption .= preg_replace('/( -$)/', '', trim($childNode->wholeText)); // Trim some fluff off the end
             }
 
             // Now get the attribution
@@ -63,10 +63,10 @@ class FelixImageConverter extends BaseConverter implements ConverterInterface
                     // If there are any A tags there is a link
                     foreach($div2->getElementsByTagName("a") as $a) {
                         $attribLink = $a->getAttribute('href');
-                        $attrib = strip_tags($a->ownerDocument->saveHTML($a));
+                        $attrib = trim(strip_tags($a->ownerDocument->saveHTML($a)));
                     }
                 } else {
-                    $attrib = $caption;
+                    $attrib = trim($html);
                 }
             }
         }
