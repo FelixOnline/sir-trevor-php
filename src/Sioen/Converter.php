@@ -43,6 +43,7 @@ class Converter
     public function toJson($html)
     {
         // Strip white space between tags to prevent creation of empty #text nodes
+        $html = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $html);
         $html = preg_replace('~>\s+<~', '><', $html);
         $document = new \DOMDocument();
 
@@ -58,18 +59,26 @@ class Converter
         // loop trough the child nodes and convert them
         if ($body) {
             foreach ($body->childNodes as $node) {
-		if (get_class($node) == "DOMComment") {
-			// Comments cannot be converted to JSON
-			continue;
-		}
+                if (get_class($node) == "DOMComment") {
+                    // Comments cannot be converted to JSON
+                    continue;
+                }
 
                 if (get_class($node) == "DOMText") {
-                        // Comments cannot be converted to JSON
-                        continue;
+                    // Comments cannot be converted to JSON
+                    continue;
                 }
 
                 $toJsonContext = new ToJsonContext($node->nodeName);
-                $data[] = $toJsonContext->getData($node);
+                $converted = $toJsonContext->getData($node);
+
+                if(key($converted) != 'type') { // Assume we have an array of converted items
+                    foreach($converted as $item) {
+                        $data[] = $item;
+                    }
+                } else {
+                    $data[] = $converted;
+                }
             }
         }
 

@@ -2,6 +2,7 @@
 
 namespace Sioen;
 
+use Sioen\Types\FelixImageConverter;
 use Sioen\Types\BlockquoteConverter;
 use Sioen\Types\HeadingConverter;
 use Sioen\Types\IframeConverter;
@@ -30,6 +31,9 @@ class ToHtmlContext
                 break;
             case 'image':
                 $this->converter = new ImageConverter();
+                break;
+            case 'feliximage':
+                $this->converter = new FelixImageConverter();
                 break;
             default:
                 $this->converter = new BaseConverter();

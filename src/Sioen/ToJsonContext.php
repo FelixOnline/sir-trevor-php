@@ -2,6 +2,7 @@
 
 namespace Sioen;
 
+use Sioen\Types\DivConverter;
 use Sioen\Types\BlockquoteConverter;
 use Sioen\Types\HeadingConverter;
 use Sioen\Types\IframeConverter;
@@ -34,6 +35,9 @@ class ToJsonContext
                 break;
             case 'img':
                 $this->converter = new ImageConverter();
+                break;
+            case 'div':
+                $this->converter = new DivConverter();
                 break;
             default:
                 $this->converter = new BaseConverter();
