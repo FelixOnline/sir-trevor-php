@@ -12,7 +12,7 @@ class FelixImageConverter extends BaseConverter implements ConverterInterface
 
             // Thankfully image formats are quite repetative so we can use basic functions to extract the filename
             $imageName = str_replace("/inc/timthumb.php?src=/", "", $imageName);
-            $imageName = str_replace(IMAGE_URL, $imageName);
+            $imageName = str_replace(IMAGE_URL, "", $imageName);
             $imageName = explode('&', $imageName);
             $imageName = $imageName[0];
 
