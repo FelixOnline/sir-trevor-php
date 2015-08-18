@@ -72,7 +72,19 @@ class Converter
                 $converted = $toJsonContext->getData($node);
 
                 if($converted != null) {
-                    $data[] = $converted;
+                    // To avoid creating billions of text objects when they fall consecutively, merge
+                    $current = current($data);
+                    $key = key($data);
+
+                    if($current['type'] == 'text' && $converted['type'] == 'text') {
+                        $current['data']['text'] = $current['data']['text']."\n\n".$converted['data']['text'];
+
+                        $data[$key] = $current;
+                    } else {
+                        $data[] = $converted;
+                        end($data); // Keep the array pointer at the end of the array
+                    }
+
                 }
             }
         }
