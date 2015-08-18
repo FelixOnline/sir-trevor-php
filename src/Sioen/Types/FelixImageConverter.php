@@ -12,6 +12,7 @@ class FelixImageConverter extends BaseConverter implements ConverterInterface
 
             // Thankfully image formats are quite repetative so we can use basic functions to extract the filename
             $imageName = str_replace("/inc/timthumb.php?src=/", "", $imageName);
+            $imageName = str_replace(IMAGE_URL, $imageName);
             $imageName = explode('&', $imageName);
             $imageName = $imageName[0];
 
@@ -19,7 +20,7 @@ class FelixImageConverter extends BaseConverter implements ConverterInterface
             $manager = new \FelixOnline\Core\BaseManager();
 
             $images = \FelixOnline\Core\BaseManager::build('FelixOnline\Core\Image', 'image');
-            $images->filter('uri = "%s"', array($imageName));
+            $images->filter('uri LIKE "%%s%"', array($imageName));
 
             $images = $images->values();
 
