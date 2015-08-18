@@ -2,6 +2,7 @@
 
 namespace Sioen;
 
+use Sioen\Types\FactoidConverter;
 use Sioen\Types\FelixImageConverter;
 use Sioen\Types\BlockquoteConverter;
 use Sioen\Types\HeadingConverter;
@@ -20,7 +21,11 @@ class ToHtmlContext
             case 'heading':
                 $this->converter = new HeadingConverter();
                 break;
+            case 'factoid':
+                $this->converter = new FactoidConverter();
+                break;
             case 'list':
+            case 'ordered_list':
                 $this->converter = new ListConverter();
                 break;
             case 'quote':
