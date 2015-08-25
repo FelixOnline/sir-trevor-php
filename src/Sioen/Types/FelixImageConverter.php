@@ -99,12 +99,24 @@ class FelixImageConverter extends BaseConverter implements ConverterInterface
             $attr = $data['attribution'];
         }
 
-        return '<div id="imgCont">
-    <img alt="'.$caption.'" class="horizontal" src="'.$image->getURL().'" />
-    <div id="imageCaption">
+        if($image->isTall()) {
+            $class = 'class="tall-image"';
+        } else {
+            $class = '';
+        }
+
+        $string = '<div id="imgCont" '.$class.'>
+    <img alt="'.$caption.'" src="'.$image->getURL().'" />';
+
+        if($data['caption'] || $attr) {
+            $string .= '<div id="imageCaption">
         '.$data['caption'].'
         <div id="imageAttr">'.$attr.'</div>
-    </div>
-</div>'."\n";
+    </div>';
+        }
+
+        $string .= '</div>'."\n";
+
+        return $string;
     }
 }
