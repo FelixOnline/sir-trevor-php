@@ -23,7 +23,7 @@ class FactoidConverter extends BaseConverter implements ConverterInterface
 
         // we use the remaining html to create the remaining text
         $html = $node->ownerDocument->saveXML($node);
-        $html = preg_replace('/<(\/|)blockquote>/i', '', $html);
+        $html = preg_replace('/<(\/|)blockquote( class="factoid")?>/i', '', $html);
 
         return array(
             'type' => 'factoid',

@@ -2,6 +2,7 @@
 
 namespace Sioen;
 
+use Sioen\Types\TwitterConverter;
 use Sioen\Types\FactoidConverter;
 use Sioen\Types\FelixImageConverter;
 use Sioen\Types\BlockquoteConverter;
@@ -39,6 +40,9 @@ class ToHtmlContext
                 break;
             case 'feliximage':
                 $this->converter = new FelixImageConverter();
+                break;
+            case 'tweet':
+                $this->converter = new TwitterConverter();
                 break;
             default:
                 $this->converter = new BaseConverter();

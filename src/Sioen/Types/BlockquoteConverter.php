@@ -11,6 +11,16 @@ class BlockquoteConverter extends BaseConverter implements ConverterInterface
         // check if the quote contains a cite
         $cite = '';
 
+        if($node->getAttribute('class') == 'factoid') {
+            $converter = new FactoidConverter();
+            return $converter->toJson($node);
+        }
+
+        if($node->getAttribute('class') == 'twitter-tweet') {
+            $converter = new TwitterConverter();
+            return $converter->toJson($node);
+        }
+
         foreach ($node->childNodes as $child) {
             // if it contains a 'cite' node, we should add it in the cite property
             if ($child->nodeName == 'cite') {
