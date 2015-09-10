@@ -3,6 +3,7 @@
 namespace Sioen\Types;
 
 use \Michelf\Markdown;
+use League\HTMLToMarkdown\HtmlConverter;
 
 class BaseConverter implements ConverterInterface
 {
@@ -22,6 +23,7 @@ class BaseConverter implements ConverterInterface
         $html = $node->ownerDocument->saveXML($node);
         $html = $this->htmlToMarkdown($html);
         $html = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x80-\x9F]/u', '', $html);
+
         $html = trim($html);
 
         if($html == '') {
@@ -43,7 +45,8 @@ class BaseConverter implements ConverterInterface
 
     protected function htmlToMarkdown($html)
     {
-        $markdown = new \HTML_To_Markdown($html, $this->options);
-        return $markdown->output();
+        $converter = new HtmlConverter($this->options);
+        $markdown = $converter->convert($html);
+        return $markdown;
     }
 }
