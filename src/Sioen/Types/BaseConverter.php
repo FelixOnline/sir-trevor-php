@@ -16,6 +16,7 @@ class BaseConverter implements ConverterInterface
         'header_style' => 'atx',
         'bold_style' => '__',
         'italic_style' => '_',
+        'strip_tags' => true
     );
 
     public function toJson(\DOMElement $node)
