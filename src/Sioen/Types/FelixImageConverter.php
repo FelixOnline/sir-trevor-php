@@ -100,12 +100,12 @@ class FelixImageConverter extends BaseConverter implements ConverterInterface
         }
 
         if($image->isTall()) {
-            $class = 'class="tall-image"';
+            $class = 'class="tall-image sizey-image"';
         } else {
-            $class = '';
+            $class = 'class="sizey-image"';
         }
 
-        $string = '<div id="imgCont" '.$class.'>
+        $string = '<div id="imgCont" '.$class.' data-width="'.$image->getWidth().'" data-height="'.$image->getHeight().'">
     <img alt="'.$caption.'" src="'.$image->getURL().'" />';
 
         if($data['caption'] || $attr) {
