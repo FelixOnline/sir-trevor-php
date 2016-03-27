@@ -34,22 +34,21 @@ class IframeConverter extends BaseConverter implements ConverterInterface
         $source = $data['source'];
         $remoteId = $data['remote_id'];
 
-        if ($source == 'youtube') {
-            $html = '<iframe src="//www.youtube.com/embed/' . $remoteId . '?rel=0" ';
-            $html .= 'frameborder="0" allowfullscreen></iframe>' . "\n";
+        $html = '<div class="videocontainer">'
 
-            return $html;
+        if ($source == 'youtube') {
+            $html .= '<iframe src="//www.youtube.com/embed/' . $remoteId . '?rel=0" ';
+            $html .= 'frameborder="0" allowfullscreen></iframe>' . "\n";
         }
 
         // vimeo videos
         if ($source == 'vimeo') {
-            $html = '<iframe src="//player.vimeo.com/video/' . $remoteId;
+            $html .= '<iframe src="//player.vimeo.com/video/' . $remoteId;
             $html .= '?title=0&amp;byline=0" frameborder="0"></iframe>' . "\n";
-
-            return $html;
         }
 
-        // fallback
-        return '';
+        $html .= '</div>';
+
+        return $html;
     }
 }
