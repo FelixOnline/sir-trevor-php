@@ -34,7 +34,7 @@ class IframeConverter extends BaseConverter implements ConverterInterface
         $source = $data['source'];
         $remoteId = $data['remote_id'];
 
-        $html = '<div class="videocontainer">'
+        $html = '<div class="videocontainer">';
 
         if ($source == 'youtube') {
             $html .= '<iframe src="//www.youtube.com/embed/' . $remoteId . '?rel=0" ';
